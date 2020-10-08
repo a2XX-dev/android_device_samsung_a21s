@@ -20,10 +20,9 @@ LOCAL_PATH := device/samsung/a21s
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := a21s
 PRODUCT_NAME := omni_a21s
-PRODUCT_BRAND := samsung
-PRODUCT_MODEL := SM-A217M
-PRODUCT_MANUFACTURER := samsung
-PRODUCT_RELEASE_NAME := samsung SM-A217M
+PRODUCT_BRAND := Samsung
+PRODUCT_MANUFACTURER := Samsung
+PRODUCT_RELEASE_NAME := a21s
 
 # Charger
 PRODUCT_PACKAGES += \
