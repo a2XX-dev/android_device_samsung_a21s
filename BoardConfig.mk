@@ -77,6 +77,7 @@ TARGET_INIT_VENDOR_LIB := libinit_a21s
 TARGET_RECOVERY_DEVICE_MODULES := libinit_a21s
 
 # Workaround for error copying vendor files to recovery ramdisk
+TARGET_COPY_OUT_PRODUCT := product
 TARGET_COPY_OUT_VENDOR := vendor
 
 # Platform
