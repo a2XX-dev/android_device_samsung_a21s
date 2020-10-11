@@ -16,8 +16,8 @@
 # limitations under the License.
 #
 
-# Inherit some common Omni stuff.
-$(call inherit-product, vendor/omni/config/common.mk)
+# Inherit some common Pitch stuff.
+$(call inherit-product, vendor/pb/config/common.mk)
 
 # Inherit language packages
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
