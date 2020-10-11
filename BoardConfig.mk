@@ -76,6 +76,9 @@ TW_INCLUDE_FUSE_NTFS := true
 TARGET_INIT_VENDOR_LIB := libinit_a21s
 TARGET_RECOVERY_DEVICE_MODULES := libinit_a21s
 
+# Bootloader
+TARGET_NO_BOOTLOADER := true
+
 # Workaround for error copying vendor files to recovery ramdisk
 TARGET_COPY_OUT_PRODUCT := product
 TARGET_COPY_OUT_VENDOR := vendor
