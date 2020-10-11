@@ -27,6 +27,10 @@ PRODUCT_RELEASE_NAME := a21s
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
+    
+# Fastbootd
+PRODUCT_PACKAGES += \
+    fastbootd
 
 PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/root,recovery/root)
 
