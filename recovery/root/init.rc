@@ -1,9 +1,14 @@
+import /init.recovery.ldconfig.rc
 import /init.recovery.${ro.hardware}.rc
+import /init.recovery.service.rc
+import /init.recovery.hlthchrg.rc
 
 on early-init
     # Set the security context of /postinstall if present.
     restorecon /postinstall
 
+    mount cgroup none /acct cpuacct
+    mkdir /acct/uid
     start ueventd
 
     setprop sys.usb.configfs 1
@@ -12,6 +17,8 @@ on init
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
+    export PATH /sbin:/system/bin
+    export LD_LIBRARY_PATH /system/lib64
 
     symlink /proc/self/fd/0 /dev/stdin
     symlink /proc/self/fd/1 /dev/stdout
@@ -19,9 +26,6 @@ on init
 
     symlink /system/bin /bin
     symlink /system/etc /etc
-
-    mount cgroup none /acct cpuacct
-    mkdir /acct/uid
 
     mkdir /sdcard
     mkdir /system
@@ -39,7 +43,13 @@ on init
     chmod 0775 /tmp
 
     write /proc/sys/kernel/panic_on_oops 1
+    write /proc/sys/kernel/hung_task_timeout_secs 0
     write /proc/sys/vm/max_map_count 1000000
+
+ #to cut charging battery path
+    write /sys/class/power_supply/battery/siop_level 0
+
+    start watchdogd
 
 on boot
     ifup lo
@@ -77,14 +87,6 @@ service ueventd /system/bin/ueventd
     critical
     seclabel u:r:ueventd:s0
 
-service charger /system/bin/charger
-    critical
-    seclabel u:r:charger:s0
-
-service recovery /system/bin/recovery
-    socket recovery stream 422 system system
-    seclabel u:r:recovery:s0
-
 service adbd /system/bin/adbd --root_seclabel=u:r:su:s0 --device_banner=recovery
     disabled
     socket adbd stream 660 system system
@@ -110,19 +112,23 @@ on fs && property:sys.usb.configfs=1
     mkdir /sys/kernel/config/usb_gadget/g1/configs/c.1
     mkdir /sys/kernel/config/usb_gadget/g1/configs/c.1/strings/0x409
     mkdir /sys/kernel/config/usb_gadget/g1/functions/ffs.adb 0770 shell shell
+    
     mkdir /sys/kernel/config/usb_gadget/g1/functions/ffs.fastboot 0770 shell shell
+    
     write /sys/kernel/config/usb_gadget/g1/strings/0x409/serialnumber ${ro.serialno}
     write /sys/kernel/config/usb_gadget/g1/strings/0x409/manufacturer "SAMSUNG"
     write /sys/kernel/config/usb_gadget/g1/strings/0x409/product "SAMSUNG_Android"
     write /sys/kernel/config/usb_gadget/g1/configs/c.1/strings/0x409/configuration "Conf 1"
     write /sys/kernel/config/usb_gadget/g1/configs/c.1/MaxPower 0x3f
 
+
 on fs
-#@RECOVERY [For reboot reason.
     symlink /dev/block/platform/12100000.dwmmc0/by-name/param /dev/block/param
     chown root system /dev/block/param
     chmod 0666 /dev/block/param
-#]
+    symlink /dev/block/platform/12100000.dwmmc0/by-name /dev/block/by-name
+    chown root system /dev/block/by-name
+    chmod 0666 /dev/block/by-name
 
     mkdir /dev/usb-ffs 0775 shell shell
     mkdir /dev/usb-ffs/adb 0770 shell shell
@@ -179,11 +185,8 @@ on property:sys.usb.config=fastboot && property:sys.usb.ffs.ready=1 && property:
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
 
-on property:sys.usb.ffs.ready=1
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/kernel/config/usb_gadget/g1/idVendor 0x04E8
-   write /sys/kernel/config/usb_gadget/g1/idProduct 0x6860
-   write /sys/class/android_usb/android0/f_ffs/aliases adb
-   write /sys/class/android_usb/android0/functions adb
-   write /sys/kernel/config/usb_gadget/g1/UDC ${sys.usb.controller}
-   write /sys/class/android_usb/android0/enable 1
+# Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
+service watchdogd /system/bin/watchdogd 10 20
+    class core
+    oneshot
+    seclabel u:r:watchdogd:s0

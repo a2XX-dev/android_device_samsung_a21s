@@ -19,11 +19,5 @@
 # Inherit some common Pitch stuff.
 $(call inherit-product, vendor/pb/config/common.mk)
 
-# Inherit language packages
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
-# Inherit 64bit support
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-
 # Inherit from a21s device
 $(call inherit-product, device/samsung/a21s/device.mk)
