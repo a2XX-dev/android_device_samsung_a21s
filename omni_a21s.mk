@@ -14,8 +14,11 @@
 # limitations under the License.
 #
 
-# Inherit from the common Open Source product configuration
-$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
+# Inherit from the common product configuration
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_minimal.mk)
+
+# Inherit from our vendor configuration
+$(call inherit-product, vendor/pb/config/common.mk)
 
 # Include any options that can't be included in BoardConfig.mk
 $(call inherit-product, device/samsung/a21s/device.mk)
