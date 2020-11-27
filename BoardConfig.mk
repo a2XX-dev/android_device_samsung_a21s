@@ -105,3 +105,6 @@ TW_EXTRA_LANGUAGES := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_INCLUDE_FUSE_EXFAT := true
 TW_INCLUDE_FUSE_NTFS := true
+
+# Pitch specific build flags
+PB_DISABLE_DEFAULT_DM_VERITY := true
