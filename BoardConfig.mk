@@ -42,6 +42,11 @@ TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
 TARGET_NO_RADIOIMAGE := true
 
+# Encryption
+TW_INCLUDE_FBE := true
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=exynos850
 BOARD_NAME := SRPSG30B003KU

@@ -18,7 +18,7 @@
 # Cache and ETC Points
 /cache              ext4    /dev/block/platform/12100000.dwmmc0/by-name/cache         flags=display="Cache";backup=1;wipeingui
 /efs                ext4    /dev/block/platform/12100000.dwmmc0/by-name/efs           flags=display="EFS";backup=1
-/data               f2fs    /dev/block/platform/12100000.dwmmc0/by-name/userdata      flags=display="Userdata";backup=1;wipeingui
+/data               f2fs    /dev/block/platform/12100000.dwmmc0/by-name/userdata      flags=display="Userdata";backup=1;encryptable=footer;length=-20480;fileencryption=ice;wipeingui
 
 # Optics, SEC and Prism Points
 /prism              ext4    /dev/block/platform/12100000.dwmmc0/by-name/prism         flags=display="Prism";backup=1
