@@ -5,7 +5,7 @@
 
 system  /system         ext4      rw,barrier=1           wait,avb=vbmeta,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
 vendor  /vendor         ext4      rw,barrier=1           wait,avb,logical,first_stage_mount
-product /product        ext4      rw,errors=panic        wait,avb,logical,first_stage_mount
+#product /product        ext4      rw,errors=panic        wait,avb,logical,first_stage_mount
 odm     /odm            ext4      rw,errors=panic        wait,avb,logical,first_stage_mount
 
 /dev/block/platform/12100000.dwmmc0/by-name/prism        /prism              ext4    rw,barrier=1    nofail,avb,first_stage_mount

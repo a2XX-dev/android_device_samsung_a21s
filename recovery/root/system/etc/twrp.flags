@@ -3,15 +3,15 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
 # EMMC Points
-/boot               emmc    /dev/block/platform/12100000.dwmmc0/by-name/boot          flags=display="Kernel Image";backup=1;flashimg=1
-/recovery           emmc    /dev/block/platform/12100000.dwmmc0/by-name/recovery      flags=display="Recovery Image";backup=1;flashimg=1
-/dtbo               emmc    /dev/block/platform/12100000.dwmmc0/by-name/dtbo          flags=display="DTBO Image";backup=1;flashimg=1
+/boot               emmc    /dev/block/platform/12100000.dwmmc0/by-name/boot         flags=display="Kernel Image";backup=1;flashimg=1
+/recovery           emmc    /dev/block/platform/12100000.dwmmc0/by-name/recovery     flags=display="Recovery Image";backup=1;flashimg=1
+/dtbo               emmc    /dev/block/platform/12100000.dwmmc0/by-name/dtbo         flags=display="DTBO Image";backup=1;flashimg=1
 /optics_image       emmc    /dev/block/platform/12100000.dwmmc0/by-name/optics       flags=display="Optics Image";backup=1;flashimg=1
 /prism_image        emmc    /dev/block/platform/12100000.dwmmc0/by-name/prism        flags=display="Prism Image";backup=1;flashimg
 
 # Logical Points (<src> <flags>)
 /system             flags=display="System";logical
-/product            flags=display="Product";logical
+#/product            flags=display="Product";logical
 /vendor             flags=display="Vendor";logical
 /odm                flags=display="ODM";logical
 
