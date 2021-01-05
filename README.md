@@ -1,20 +1,20 @@
-# Team Win Recovery Project for the Samsung Galaxy A21s
+# Orange Fox Project for the Samsung Galaxy A21s
 
 ### How to build ###
 
 ```bash
 # Create dirs
-$ mkdir tw; cd tw
+$ mkdir ofr; cd ofr
 
-# Init repo
-$ repo init --depth=1 -u git://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-10.0
+# Init rsync
+$ rsync rsync://sources.orangefox.download/sources/fox_10.0 . --progress -a
 
 # Clone a21s repo
-$ git clone https://github.com/a2XX-dev/android_device_samsung_a21s -b twrp-10.0 device/samsung/a21s
-
-# Sync
-$ repo sync --no-repo-verify -c --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune -j`nproc`
+$ cd fox_10.0; git clone https://github.com/a2XX-dev/android_device_samsung_a21s -b fox-10.0 device/samsung/a21s
 
 # Build
-$ source build/envsetup.sh; export ALLOW_MISSING_DEPENDENCIES=true; lunch omni_a21s-eng; mka recoveryimage
+$ mv device/samsung/a21s/build_ofox.sh .; chmod +x build_ofox.sh; ./build.sh
 ```
+
+### Credits
+* Astrako: For build_ofox.sh base
