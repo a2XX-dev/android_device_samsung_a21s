@@ -20,6 +20,13 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 # Include any options that can't be included in BoardConfig.mk
 $(call inherit-product, device/samsung/a21s/device.mk)
 
+# Charger
+PRODUCT_PACKAGES += \
+    charger_res_images
+
+# Nothing
+PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/samsung/a21s/recovery/root,recovery/root)
+
 ## Device identifier. This must come after all inclusions
 PRODUCT_NAME := omni_a21s
 PRODUCT_DEVICE := a21s
